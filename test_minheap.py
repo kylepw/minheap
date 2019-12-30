@@ -4,7 +4,7 @@ import unittest
 
 class TestMinHeap(unittest.TestCase):
     def setUp(self):
-        self.h = MinHeap(values=[2, 4, 5, 12, 13, 6, 10])
+        self.h = MinHeap(elements=[2, 4, 5, 12, 13, 6, 10])
 
     def test_parent_index(self):
         self.assertLess(self.h._parent_index(0), 0)
@@ -36,15 +36,15 @@ class TestMinHeap(unittest.TestCase):
         self.assertIsNone(MinHeap().peek())
 
     def test_heapify_init(self):
-        values = [2, 4, 5, 6, 10, 12, 13]
-        h = MinHeap(values)
+        elements = [2, 4, 5, 6, 10, 12, 13]
+        h = MinHeap(elements)
         self.assertEqual(h.h, [2, 4, 5, 6, 10, 12, 13])
 
     def test_heapify_after_init(self):
-        values = [2, 4, 5, 6, 10, 12, 13]
+        elements = [2, 4, 5, 6, 10, 12, 13]
         h = MinHeap()
         self.assertEqual(h.h, [])
-        h._heapify(values)
+        h._heapify(elements)
         self.assertEqual(h.h, [2, 4, 5, 6, 10, 12, 13])
 
     def test_insert_1(self):
@@ -80,7 +80,7 @@ class TestMinHeap(unittest.TestCase):
 class TestMinHeapWithTuples(unittest.TestCase):
     def setUp(self):
         self.h = MinHeap(
-            values=[(4, 101), (12, 9), (13, 5), (2, 1), (6, 1001), (5, 45), (10, 121)]
+            elements=[(4, 101), (12, 9), (13, 5), (2, 1), (6, 1001), (5, 45), (10, 121)]
         )
 
     def test_correct_order(self):

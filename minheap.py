@@ -4,9 +4,9 @@ class MinHeap:
     Supported operations:
         is_empty():         Check whether the heap is empty or not.
         peek():             Return the current smallest heap element.
-        insert(value):      Insert element into heap.
+        insert(element):      Insert element into heap.
         pop():              Return smallest heap element and re-heapify heap.
-        update_min(v, l):   Update comparison value of an element in heap.
+        update_min(value, label):   Update comparison value of an element in heap.
 
     Usage:
         >>> h = MinHeap([10, 5, 2, 8, -1, 9])
@@ -45,15 +45,15 @@ class MinHeap:
 
     """
 
-    def __init__(self, values=None):
+    def __init__(self, elements=None):
         self.h = []
         # Track current index of labels.
         self.index = {}
-        if values is not None:
-            self._heapify(values)
+        if elements is not None:
+            self._heapify(elements)
 
-    def __contains__(self, value):
-        return value in self.h
+    def __contains__(self, element):
+        return element in self.h
 
     def __len__(self):
         return len(self.h)
@@ -61,15 +61,15 @@ class MinHeap:
     def __repr__(self):
         return repr(self.h)
 
-    def _label(self, value):
-        if isinstance(value, tuple) and len(value) == 2:
-            return value[1]
-        return value
+    def _label(self, element):
+        if isinstance(element, tuple) and len(element) == 2:
+            return element[1]
+        return element
 
-    def _val(self, value):
-        if isinstance(value, tuple) and len(value) == 2:
-            return value[0]
-        return value
+    def _val(self, element):
+        if isinstance(element, tuple) and len(element) == 2:
+            return element[0]
+        return element
 
     def _parent_index(self, index):
         return (index - 1) // 2
@@ -80,10 +80,10 @@ class MinHeap:
     def _right_child_index(self, index):
         return (index * 2) + 2
 
-    def _heapify(self, values):
+    def _heapify(self, elements):
         self.h = []
-        for v in values:
-            self.insert(v)
+        for e in elements:
+            self.insert(e)
 
     def _sift_up(self, i=None):
         if i is None:
@@ -136,13 +136,13 @@ class MinHeap:
     def peek(self):
         return self.h[0] if len(self.h) > 0 else None
 
-    def insert(self, value):
-        label = self._label(value)
+    def insert(self, element):
+        label = self._label(element)
 
         if label in self.index:
             raise ValueError(f"Element with label '{label}' already exists.")
 
-        self.h.append(value)
+        self.h.append(element)
 
         # Add index.
         self.index[label] = len(self.h) - 1
@@ -174,8 +174,8 @@ class MinHeap:
         del self.index[top_label]
         self.index[bottom_label] = 0
 
-        value = self.h[0]
+        element = self.h[0]
         self.h[0] = self.h.pop()
         self._sift_down()
 
-        return value
+        return element

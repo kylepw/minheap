@@ -9,9 +9,9 @@ Operations
 ----------
 * **is_empty()**:         Check whether the heap is empty or not.
 * **peek()**:             Return the current smallest heap element.
-* **insert(value)**:      Insert element into heap.
+* **insert(element)**:      Insert element into heap.
 * **pop()**:              Return smallest heap element and re-heapify heap.
-* **update_min(v, l)**:     Update comparison value of an element in heap.
+* **update_min(value, label)**:     Update comparison value of an element in heap.
 
 Usage
 -----
