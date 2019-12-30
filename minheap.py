@@ -2,10 +2,10 @@ class MinHeap:
     """MinHeap implementation.
 
     Supported operations:
-        is_empty():         Check whether the heap is empty or not.
-        peek():             Return the current smallest heap element.
-        insert(element):      Insert element into heap.
-        pop():              Return smallest heap element and re-heapify heap.
+        is_empty():                 Check whether the heap is empty or not.
+        peek():                     Return the current smallest heap element.
+        insert(element):            Insert element into heap and re-heapify heap.
+        pop():                      Return smallest heap element and re-heapify heap.
         update_min(value, label):   Update comparison value of an element in heap.
 
     Usage:
@@ -137,6 +137,22 @@ class MinHeap:
         return self.h[0] if len(self.h) > 0 else None
 
     def insert(self, element):
+        """Insert unique element into heap.
+
+            Args:
+                element: any value. If a two-element tuple i.e. (5, 'A'), the
+                the first element t[0] becomes the comparison value and t[1]
+                acts as a label.
+
+            Returns:
+                Final index of inserted element on the heap array after
+                re-heap.
+
+            Raises:
+                ValueError: if element already exists in heap.
+
+        """
+
         label = self._label(element)
 
         if label in self.index:
@@ -150,6 +166,27 @@ class MinHeap:
         return self._sift_up()
 
     def update_min(self, value, label):
+        """Update minimum value of element in heap.
+
+            Args:
+                value: Value to overwrite existing value only if it is less
+                than the existing value. If not smaller, no change occurs.
+
+                label: Identifying label of element. If a two-element tuple,
+                i.e. (5, 'A'), the label is 'A'. Any other value, the label
+                is that value, i.e. (1, 1, 1) or 55. Therefore, if original
+                element was an integer 10, update_min(5, 10) would replace
+                10 in the heap with 5.
+
+            Returns:
+                Final element after update.
+
+            Raises:
+                ValueError: If element with `label` not found in heap or element
+                replacing current element value is already in the heap.
+
+        """
+
         if label not in self.index:
             raise ValueError(f"Invalid label '{label}'")
         i = self.index[label]
@@ -158,10 +195,21 @@ class MinHeap:
             if isinstance(self.h[i], tuple) and len(self.h[i]) == 2:
                 self.h[i] = (value, label)
             else:
+                if value in self.index:
+                    raise ValueError(
+                        f"Cannot replace '{current_val}' with '{value}'. '{value}' already exists in heap."
+                    )
                 self.h[i] = value
         return self.h[self._sift_up(i)]
 
     def pop(self):
+        """Remove element with smallest value in heap, then re-heapify heap.
+
+            Returns:
+                Element with smallest value in the heap.
+
+        """
+
         if len(self.h) == 0:
             return None
         elif len(self.h) == 1:
