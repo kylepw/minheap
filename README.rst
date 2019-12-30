@@ -13,6 +13,9 @@ Operations
 * **pop()**:              Return smallest heap element and re-heapify heap.
 * **update_min(value, label)**:     Update comparison value of an element in heap.
 
+*Note:* Elements can be tuples (value, label) which can be useful for tracking
+comparison values of records such as node names i.e. (3, 'A').
+
 Usage
 -----
 ::
@@ -42,10 +45,6 @@ Usage
         ...     ordered.append(h.pop())
         >>> ordered
         [(1, 'A'), (2, 'B'), (5, 'E'), (7, 'I'), (8, 'H'), (10, 'J')]
-
-Note:
-Elements can be tuples (value, label) which can be useful for tracking
-comparison values of records such as node names i.e. (3, 'A').
 
 Tests
 -----
